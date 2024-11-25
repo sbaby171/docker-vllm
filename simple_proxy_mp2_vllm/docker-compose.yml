@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Proxy Dockerfile
+    ports:
+      - "5000:5000"          # Expose proxy port
+    depends_on:
+      - vllm_gpu_0
+      - vllm_gpu_1
+    networks:
+      - llm_network
+
+  vllm_gpu_0:
+    image: vllm/vllm-openai:latest
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+              device_ids: ["0"]
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      HUGGING_FACE_HUB_TOKEN: "${HUGGING_FACE_HUB_TOKEN}"
+    ports:
+      - "8000:8000"
+    ipc: "host"
+    command: --model meta-llama/Llama-3.2-1B-Instruct
+    networks:
+      - llm_network
+
+  vllm_gpu_1:
+    image: vllm/vllm-openai:latest
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+              device_ids: ["1"]
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      HUGGING_FACE_HUB_TOKEN: "${HUGGING_FACE_HUB_TOKEN}"
+    ports:
+      - "8080:8000"
+    ipc: "host"
+    command: --model meta-llama/Llama-3.2-1B-Instruct
+    networks:
+      - llm_network
+
+networks:
+  llm_network:
+    name: llm_network
+

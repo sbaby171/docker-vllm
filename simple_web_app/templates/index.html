@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Web App</title>
+</head>
+<body>
+    <h1>Simple Web App</h1>
+    <form method="POST">
+        <label for="text_input">PDF URL:</label><br>
+        <input type="text" id="text_input" name="text_input" required><br><br>
+        <label for="dropdown">Select an option:</label><br>
+        <select id="dropdown" name="dropdown" required>
+            <option value="A">Summarize</option>
+            <option value="B">List Key features</option>
+            <option value="C">Critique</option>
+        </select><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    {% if selected_option %}
+        <p><strong>{{ selected_option }}</strong></p>
+    {% endif %}
+</body>
+</html>
+

@@ -1,10 +1,11 @@
+import os
 import requests
 import datetime
 import pdfplumber
 from markdownify import markdownify
 
 # ====================================================================|=======:
-def download_pdf_to_markdown(url): 
+def download_pdf_to_markdown(url,save_outputs=False): 
     # Get the current date and time
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")  # Format: YYYY-MM-DD_HH-MM-SS
@@ -33,6 +34,9 @@ def download_pdf_to_markdown(url):
 
     print(f"PDF saved as: {pdf_filename}")
     print(f"Markdown saved as: {markdown_filename}")
+    if not save_outputs: 
+        os.remove(pdf_filename)
+        os.remove(markdown_filename)
     return markdown_output
 
 # ====================================================================|=======:

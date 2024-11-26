@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .feedback {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 1px solid #4CAF50;
+            background-color: #dff0d8;
+            color: #3c763d;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Web App</h1>
+    <form method="POST">
+        <label for="text_input">PDF URL:</label>
+        <input type="text" id="text_input" name="text_input" placeholder="Enter a valid PDF URL" required>
+        
+        <label for="dropdown">Select an option:</label>
+        <select id="dropdown" name="dropdown" required>
+            <option value="A">Summarize</option>
+            <option value="B">List key points</option>
+            <option value="C">Critique</option>
+        </select>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if selected_option %}
+        <div class="feedback">
+            <p><strong>Submission Result:</strong></p>
+            <div>{{ selected_option|safe }}</div>
+        </div>
+    {% endif %}
+</body>
+</html>
+

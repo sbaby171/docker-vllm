@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  vllm:
+    image: vllm/vllm-openai:latest
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+              device_ids: ["0", "1"]
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      HUGGING_FACE_HUB_TOKEN: "${HUGGING_FACE_HUB_TOKEN}"
+    ports:
+      - "8000:8000"
+    ipc: "host"
+    command: >
+      --tensor-parallel-size 2
+      --model meta-llama/Llama-3.1-8B-Instruct
+ 
+    networks: 
+      - llm_network
+
+
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0
+    depends_on:
+      - vllm
+    volumes:
+      - ./app:/app
+    networks: 
+      - llm_network
+
+networks: 
+  llm_network:
+    name: llm_network

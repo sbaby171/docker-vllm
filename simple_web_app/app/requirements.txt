@@ -1,0 +1,7 @@
+Flask==2.3.2
+markdown==3.4.4
+markdownify==0.11.6
+requests==2.31.0
+pdfplumber==0.5.28
+openai==1.51.2
+

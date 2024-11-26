@@ -12,7 +12,9 @@ $ docker run --runtime nvidia --gpus all \
 def summarize(txt):
     api_token = "EMPTY"
     client = OpenAI(
-        base_url=f"http://localhost:8000/v1",
+        #base_url=f"http://0.0.0.0:8000/v1",
+        base_url=f"http://vllm:8000/v1",
+        #base_url=f"http://localhost:8000/v1",
         api_key=api_token,
     )
 
@@ -40,7 +42,8 @@ def summarize(txt):
 def key_features(txt):
     api_token = "EMPTY"
     client = OpenAI(
-        base_url=f"http://localhost:8000/v1",
+        #base_url=f"http://localhost:8000/v1",
+        base_url=f"http://vllm:8000/v1",
         api_key=api_token,
     )
 
@@ -68,7 +71,8 @@ def key_features(txt):
 def critique(txt):
     api_token = "EMPTY"
     client = OpenAI(
-        base_url=f"http://localhost:8000/v1",
+        base_url=f"http://vllm:8000/v1",
+        #base_url=f"http://localhost:8000/v1",
         api_key=api_token,
     )
 

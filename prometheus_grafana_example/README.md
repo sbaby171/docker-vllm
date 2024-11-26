@@ -1,7 +1,11 @@
 This much of this code is pulled directly from: https://github.com/vllm-project/vllm/tree/main/examples/production_monitoring
 
 ## Overview: 
-i
+This code shows how to run a vLLM server with a separate Docker containers running the 
+Prometheus and Grafana stacks. Note, this has a Grafana JSON to produce some nice graphs.
+
+
+Found this code source from this vLLM discussion thread: https://github.com/vllm-project/vllm/discussions/4700 
 
 
 ## Launch vLLM: 
@@ -23,6 +27,7 @@ wget https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/r
 ```
 
 ## Run vLLM Benchmarking Server script
+```
 python3 ../../benchmarks/benchmark_serving.py \
     --model mistralai/Mistral-7B-v0.1 \
     --tokenizer mistralai/Mistral-7B-v0.1 \

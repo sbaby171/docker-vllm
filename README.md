@@ -2,7 +2,7 @@
 A collection of simple Docker files for vLLM and web based applications
 
 
-## Quick Reference - vLLM serve
+## Quick Reference - vLLM serve + client OpenAI API
 ```
 docker run --runtime nvidia --gpus all \
     -v ~/.cache/huggingface:/root/.cache/huggingface \
@@ -12,4 +12,14 @@ docker run --runtime nvidia --gpus all \
     --tensor-parallel-size 2 \
      --model meta-llama/Llama-3.1-8B-Instruct
 ```
-**NOTE** - the may HUGGING_FACE_HUB_TOKEN not be necessary. 
+**NOTE** - the argument `HUGGING_FACE_HUB_TOKEN` not be necessary if you are already logged in `huggingface login`. 
+
+Client-side: 
+```
+api_token = "EMPTY"
+client = OpenAI(
+    base_url=f"http://localhost:{args.port}/v1",
+    api_key=api_token,
+)
+```
+**NOTE** - vLLM serve default port is 8000. 
